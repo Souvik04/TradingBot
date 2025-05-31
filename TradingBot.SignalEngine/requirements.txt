@@ -1,0 +1,21 @@
+# Core dependencies
+flask==2.3.3
+
+# For OpenAI API interaction
+openai==1.30.1
+
+# For numerical computations and data manipulation
+pandas==2.2.2
+numpy==1.26.4
+
+# For technical analysis
+ta==0.11.0
+
+# For date and time parsing
+python-dateutil==2.9.0.post0
+
+# For making HTTP requests (if needed)
+requests==2.31.0
+
+# Optional: logging enhancements
+loguru==0.7.2

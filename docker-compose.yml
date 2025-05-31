@@ -1,0 +1,14 @@
+services:
+  tradingbot-api:
+    build:
+      context: .
+      dockerfile: TradingBot.Api/TradingBot.Api.Dockerfile
+    ...
+
+  signal-engine:
+    build:
+      context: .
+      dockerfile: TradingBot.SignalEngine/TradingBot.SignalEngine.Dockerfile
+    ...
+    env_file:
+      - .env
