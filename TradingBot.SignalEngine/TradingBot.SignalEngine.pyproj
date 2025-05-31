@@ -21,7 +21,25 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="engine.py" />
+    <Compile Include="health.py" />
+    <Compile Include="logging_config.py" />
     <Compile Include="main.py" />
+    <Compile Include="strategies\ai_strategy.py" />
+    <Compile Include="strategies\base.py" />
+    <Compile Include="strategies\basic.py" />
+    <Compile Include="strategies\config_loader.py" />
+    <Compile Include="strategies\moving_average.py" />
+    <Compile Include="strategies\__init__.py" />
+    <Compile Include="strategy_runner.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="strategies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.md" />
+    <Content Include="strategies\sample_moving_average.json" />
+    <Content Include="strategies\strategy.schema.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

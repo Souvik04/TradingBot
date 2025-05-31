@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trading Strategy Configuration",
+  "type": "object",
+  "required": [
+    "name",
+    "indicators",
+    "timeframe",
+    "risk_reward_ratio",
+    "trade_type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Strategy name"
+    },
+    "indicators": {
+      "type": "array",
+      "description": "List of indicators used",
+      "items": { "type": "string" }
+    },
+    "timeframe": {
+      "type": "string",
+      "description": "Time window (e.g., 5min, 1h, 1d)"
+    },
+    "risk_reward_ratio": {
+      "type": "number",
+      "description": "Desired risk/reward ratio"
+    },
+    "trade_type": {
+      "type": "string",
+      "enum": [ "intraday", "swing", "options", "delivery" ],
+      "description": "Type of trading"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Custom parameters for strategy",
+      "additionalProperties": true
+    }
+  }
+}

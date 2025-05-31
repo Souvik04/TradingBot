@@ -1,24 +1,54 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using TradingBot.Api.Models;
-using TradingBot.Api.Services;
 
-[ApiController]
-[Route("api/[controller]")]
-public class TradeController : ControllerBase
+namespace TradingBot.Api.Controllers
 {
-    [HttpGet("config")]
-    public IActionResult GetConfig() => Ok(ConfigManager.Get());
-
-    [HttpPost("config")]
-    public IActionResult UpdateConfig([FromBody] Config config)
+    [ApiController]
+    [Route("signals")]
+    public class TradeController : ControllerBase
     {
-        ConfigManager.Save(config);
-        return Ok();
-    }
+        private readonly TradeSettings _tradeSettings;
 
-    [HttpPost("signal")] // For manual testing
-    public IActionResult PostSignal([FromBody] TradeSignal signal)
-    {
-        return Ok(TradeExecutor.HandleSignal(signal));
+        public TradeController(IOptions<TradeSettings> tradeSettingsOptions)
+        {
+            _tradeSettings = tradeSettingsOptions.Value;
+        }
+
+        [HttpGet("config")]
+        public IActionResult GetTradeConfig()
+        {
+            return Ok(_tradeSettings);
+        }
+
+        // Example usage in your trade logic
+        [HttpPost("generate")]
+        public IActionResult GenerateSignal([FromBody] SignalEngineInput input)
+        {
+            if (_tradeSettings.EnableSignalOnly)
+            {
+                // Only generate signal, don't execute trades
+            }
+
+            if (_tradeSettings.EnableAutoBuy && input.TradeType == "buy")
+            {
+                // Allow auto-buy logic
+            }
+
+            if (_tradeSettings.EnableAutoSell && input.TradeType == "sell")
+            {
+                // Allow auto-sell logic
+            }
+
+            if (!_tradeSettings.TradeTypesEnabled.Contains(input.TradeType))
+            {
+                return BadRequest("Trade type not enabled.");
+            }
+
+            // Use _tradeSettings.MaxDailyBuyAmount, etc. as needed
+
+            // ...the rest of your logic...
+            return Ok();
+        }
     }
 }

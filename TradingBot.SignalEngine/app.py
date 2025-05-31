@@ -1,20 +1,19 @@
 from flask import Flask, request, jsonify
 import openai
 import os
+from engine import generate_signal  # classic indicator-based
 
 app = Flask(__name__)
 
-# Load OpenAI API Key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-@app.route('/signal', methods=['POST'])
-def generate_signal():
+@app.route('/signal/ai', methods=['POST'])
+def generate_signal_ai():
     data = request.json
     stock_data = data.get("stock_data", "")
     preferences = data.get("preferences", {})
 
     try:
-        # Example OpenAI call (replace prompt logic with real data and logic)
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
@@ -35,6 +34,16 @@ def generate_signal():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/signal/classic', methods=['POST'])
+def generate_signal_classic():
+    data = request.get_json()
+    symbol = data.get("symbols", [""])[0]  # Accepts array, uses first symbol
+    if not symbol:
+        return jsonify({"error": "No symbol provided"}), 400
+
+    result = generate_signal(symbol)
+    return jsonify(result)
 
 @app.route('/health', methods=['GET'])
 def health_check():
