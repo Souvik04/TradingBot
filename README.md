@@ -26,3 +26,8 @@ TradingBot/
 ├── docker-compose.yml        # Orchestrates multi-container dev environment
 ├── REQUIREMENTS.md           # Functional & Non-functional requirements
 ├── ARCHITECTURE.md           # System architecture overview
+```
+
+## 📄 Documentation
+
+https://github.com/Souvik04/TradingBot/tree/master/docs/project-vision.md
